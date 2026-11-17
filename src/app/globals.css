@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --color-brand-50: #eff8ff;
+  --color-brand-100: #dbeefe;
+  --color-brand-200: #bfe0fe;
+  --color-brand-300: #93cdfd;
+  --color-brand-400: #60b0fa;
+  --color-brand-500: #3b8ff6;
+  --color-brand-600: #2570eb;
+  --color-brand-700: #1d5bd8;
+  --color-brand-800: #1e4aaf;
+  --color-brand-900: #1e428a;
+  --color-brand-950: #172a54;
+}
+
+@layer base {
+  button:not(:disabled),
+  summary,
+  select:not(:disabled) {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+  }
+}
+
+/* Rendered Markdown (task descriptions and comments). */
+.markdown {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.markdown > * + * {
+  margin-top: 0.75em;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4 {
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 1.25em;
+}
+
+.markdown > :first-child {
+  margin-top: 0;
+}
+
+.markdown h1 {
+  font-size: 1.375rem;
+}
+
+.markdown h2 {
+  font-size: 1.1875rem;
+}
+
+.markdown h3 {
+  font-size: 1.0625rem;
+}
+
+.markdown ul,
+.markdown ol {
+  padding-left: 1.5rem;
+}
+
+.markdown ul {
+  list-style: disc;
+}
+
+.markdown ol {
+  list-style: decimal;
+}
+
+.markdown li + li {
+  margin-top: 0.25em;
+}
+
+.markdown ul.contains-task-list {
+  list-style: none;
+  padding-left: 0.25rem;
+}
+
+.markdown .task-list-item input {
+  margin-right: 0.5rem;
+  accent-color: var(--color-brand-600);
+}
+
+.markdown a {
+  color: var(--color-brand-700);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.markdown code {
+  background: var(--color-slate-100);
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  padding: 0.125rem 0.3rem;
+}
+
+.markdown pre {
+  background: var(--color-slate-900);
+  border-radius: 0.5rem;
+  color: var(--color-slate-100);
+  overflow-x: auto;
+  padding: 0.75rem 1rem;
+}
+
+.markdown pre code {
+  background: none;
+  padding: 0;
+}
+
+.markdown blockquote {
+  border-left: 3px solid var(--color-slate-300);
+  color: var(--color-slate-600);
+  padding-left: 0.875rem;
+}
+
+.markdown img {
+  border: 1px solid var(--color-slate-200);
+  border-radius: 0.5rem;
+  max-height: 32rem;
+  max-width: 100%;
+}
+
+.markdown table {
+  border-collapse: collapse;
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.markdown th,
+.markdown td {
+  border: 1px solid var(--color-slate-200);
+  padding: 0.375rem 0.75rem;
+  text-align: left;
+}
+
+.markdown th {
+  background: var(--color-slate-50);
+  font-weight: 600;
+}
+
+.markdown hr {
+  border-color: var(--color-slate-200);
+}

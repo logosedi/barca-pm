@@ -1,0 +1,26 @@
+# Postgres para rodar o BARCA PM como em produção (o desenvolvimento do dia a dia não
+# precisa disto: sem DATABASE_URL o app usa o banco embutido).
+#
+#   docker compose up -d
+#   DATABASE_URL=postgres://barca:barca@localhost:5432/barca  (em .env.local)
+#   pnpm db:migrate
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: barca
+      POSTGRES_PASSWORD: barca
+      POSTGRES_DB: barca
+    ports:
+      - "5432:5432"
+    volumes:
+      - barca-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U barca -d barca"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  barca-db:

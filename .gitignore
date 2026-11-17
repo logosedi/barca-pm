@@ -1,0 +1,31 @@
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# local data (embedded database and uploaded files)
+/.data/
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+.pnpm-debug.log*
+
+# env files (.env.example is the committed template)
+.env*
+!.env.example
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
