@@ -1,0 +1,56 @@
+# BARCA PM como serviço do Docker Swarm.
+#
+#   docker build -t barca-pm:1 .
+#   BARCA_PM_TAG=1 DATABASE_URL='postgres://USUARIO:SENHA@HOST:5432/barca_pm' \
+#     docker stack deploy -c docker-stack.yml barca-pm
+#
+# O que este arquivo não resolve e depende de quem administra o servidor:
+#   - Banco: um database e um usuário próprios no Postgres. O usuário precisa ser dono
+#     do database, porque as migrações criam as tabelas ao iniciar o contêiner.
+#   - Rota: pm.barca.cc -> serviço "app", porta 3000. Ligue o serviço à rede do proxy
+#     e acrescente os rótulos ou a configuração que o proxy usa (trechos marcados abaixo).
+#   - Imagem: com mais de um nó no Swarm, publique a imagem em um registro e fixe o
+#     serviço no nó que guarda o volume.
+version: "3.8"
+
+services:
+  app:
+    image: barca-pm:${BARCA_PM_TAG:-latest}
+    init: true
+    environment:
+      # Endereço público, usado nos links enviados ao Slack e nas instruções do MCP.
+      APP_URL: https://pm.barca.cc
+      DATABASE_URL: ${DATABASE_URL:?defina DATABASE_URL}
+      # Integrações: opcionais, podem ficar vazias. Veja docs/integrations/.
+      SLACK_BOT_TOKEN: ${SLACK_BOT_TOKEN:-}
+      SLACK_SIGNING_SECRET: ${SLACK_SIGNING_SECRET:-}
+      SHOPIFY_WEBHOOK_SECRET: ${SHOPIFY_WEBHOOK_SECRET:-}
+      GURU_API_TOKEN: ${GURU_API_TOKEN:-}
+    volumes:
+      # Imagens enviadas pelos usuários. Entra no backup junto com o banco.
+      - uploads:/data
+    # networks:
+    #   - REDE_DO_PROXY
+    #   - REDE_DO_POSTGRES
+    deploy:
+      # Uma instância só: as imagens ficam em volume local e o limite de tentativas de
+      # login fica na memória do processo.
+      replicas: 1
+      update_config:
+        # Para a versão antiga antes de subir a nova, para as migrações não rodarem
+        # com duas versões do app no ar.
+        order: stop-first
+      restart_policy:
+        condition: any
+        delay: 10s
+      # labels:
+      #   - RÓTULOS DO PROXY PARA pm.barca.cc -> porta 3000
+
+volumes:
+  uploads:
+
+# networks:
+#   REDE_DO_PROXY:
+#     external: true
+#   REDE_DO_POSTGRES:
+#     external: true

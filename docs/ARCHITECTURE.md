@@ -136,5 +136,7 @@ Consequências:
 - **Uma instância só**, enquanto as imagens estiverem em disco local e o limite de login em memória. Para escalar horizontalmente, mova as imagens para armazenamento de objetos e o limite para o banco (ambos no [roadmap](ROADMAP.md)).
 - Plataformas serverless (Vercel, por exemplo) não servem sem antes trocar o armazenamento das imagens, porque o disco não persiste.
 - `GET /api/health` consulta o banco e responde `{"status":"ok"}`, ou HTTP 503 se o banco estiver fora. Serve para verificação de disponibilidade.
-- Não há Dockerfile do app nem integração contínua no repositório; o `docker-compose.yml` sobe apenas o Postgres.
+- O `Dockerfile` gera a imagem do app: ao iniciar, o contêiner aplica as migrações e sobe o servidor na porta 3000, com as imagens enviadas em `/data`. O `docker-stack.yml` descreve o serviço para Docker Swarm; o `docker-compose.yml` sobe apenas um Postgres local.
+- Atrás de um proxy, o cabeçalho `Host` original precisa chegar ao app (as Server Actions e o envio de imagens conferem a origem) e a resposta não pode ser retida em buffer, porque as páginas são enviadas em partes.
+- Não há integração contínua no repositório.
 - Backup é o backup do Postgres mais a pasta de imagens.

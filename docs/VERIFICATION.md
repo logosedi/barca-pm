@@ -82,6 +82,7 @@ Isso confirma o código de conexão, as migrações e as transações pelo drive
 | Clientes de IA (Claude, Cursor) conectados ao MCP | Testado só com o cliente do SDK |
 | Servidor PostgreSQL instalado | Veja a seção anterior |
 | `docker-compose.yml` | Escrito, não executado |
+| `Dockerfile` e `docker-stack.yml` | Escritos, nunca construídos nem executados: não havia Docker na máquina de desenvolvimento nem acesso ao Docker no servidor. Os dois comandos que o contêiner roda ao iniciar (migração com tsx e `next start`) são os mesmos verificados fora do contêiner |
 | Desempenho com volume | Nenhum teste com milhares de tarefas ou muitos usuários simultâneos |
 | Navegadores | Só o Chromium embutido no editor. Firefox e Safari não foram testados |
 | Leitor de tela | Não testado |

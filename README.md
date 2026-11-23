@@ -58,6 +58,8 @@ pnpm db:migrate               # aplica as migrações
 pnpm build && pnpm start
 ```
 
+Com Docker, `docker build -t barca-pm .` gera a imagem do app, que aplica as migrações ao iniciar; o `docker-stack.yml` traz o serviço para Docker Swarm.
+
 O app precisa de um processo Node de longa duração e de um disco persistente para `UPLOAD_DIR`. Detalhes e limites em [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#implantação).
 
 ## Comandos

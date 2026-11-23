@@ -10,7 +10,8 @@ O que existe hoje é uma primeira versão completa do que foi pedido. Esta lista
 | Rodar contra um servidor PostgreSQL de verdade | O caminho do Postgres foi verificado pelo driver, mas contra o motor embutido, não contra um servidor instalado ([VERIFICATION.md](VERIFICATION.md)) |
 | Recuperação de senha | Hoje ninguém consegue redefinir uma senha esquecida pela interface ([0004](DECISIONS.md#0004-autenticação-própria-sessões-no-banco-scrypt-e-convites-por-link)) |
 | Envio de e-mail (convites e recuperação) | O administrador copia o link do convite à mão |
-| Dockerfile do app e integração contínua | Só o Postgres está no `docker-compose.yml`; os testes rodam apenas localmente |
+| Construir e rodar a imagem Docker | O `Dockerfile` e o `docker-stack.yml` foram escritos sem Docker disponível para testá-los ([VERIFICATION.md](VERIFICATION.md)) |
+| Integração contínua | Os testes rodam apenas localmente |
 | Backup do banco e da pasta de imagens | Não há nada automatizado |
 
 ## Produto
